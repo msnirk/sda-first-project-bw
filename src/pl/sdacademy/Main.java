@@ -6,6 +6,15 @@ public class Main {
 
     public static void main(String[] args) {
 
+        debugMode = true;
+
+        Hero fakeHero = new Hero("bohater", Sex.FEMALE, 100, 10, 10, 10, 10, 10);
+        fakeHero.printInfo();
+        fakeHero.applyDamage((byte) 10);
+
+
+        System.exit(0);
+
         ConsoleUtils.debugMode = true;
 
         System.out.println("Just a " + C_PURPLE_UNDERLINED + "RED" + C_RESET + " test...");
@@ -41,7 +50,7 @@ public class Main {
             hero.attack(attackType.charAt(0), enemy);
 
             System.out.println("Enemy health: " + enemy.getHealth());
-            System.out.println("Already killed " + c_purple(""+Enemy.enemiesCount) + " enemies");
+            System.out.println("Already killed " + c_purple("" + Enemy.enemiesCount) + " enemies");
         } while (!attackType.isEmpty());
     }
 }

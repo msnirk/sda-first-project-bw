@@ -2,6 +2,8 @@ package pl.sdacademy;
 
 import java.util.Date;
 
+import static pl.sdacademy.ConsoleUtils.*;
+
 public class Hero {
 
     //statistics given by player
@@ -54,6 +56,7 @@ public class Hero {
 
         this.coins = 0;
     }
+
     public void printInfo() {
         System.out.println("===== HERO STATS =====\n" +
                 "name: " + name +
@@ -78,13 +81,14 @@ public class Hero {
     }
 
     public void applyDamage(byte amount) {
-        System.out.println("Dealing " + amount + " damage to " + name);
+        System.out.println("Dealing " + c_red(String.valueOf(amount)) + " damage to " + name);
         health -= amount;
 
-        if(health < 0) {
+        if (health < 0) {
             health = 0;
-
-            System.out.println("Enemy: " + name + " is dead!");
+            printDebug("Gracz zginal - koniec gry");
+            System.out.println("Hero " + name + " is dead!");
+            System.exit(0);
         }
     }
 
