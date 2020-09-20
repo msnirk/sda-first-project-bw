@@ -4,34 +4,53 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import static pl.sdacademy.ConsoleUtils.*;
+import static pl.sdacademy.Sex.*;
 
+/**
+ * Singleton class because only one hero builder can exist
+ *
+ * @author Maniek
+ * @version 1.0
+ */
 public class HeroBuilder {
+    private static HeroBuilder Instance;
 
-    public static int skillPoints = 100;
+    private HeroBuilder() {
+
+    }
+
+    public static HeroBuilder getInstance() {
+        if (Instance == null) {
+            Instance = new HeroBuilder();
+        }
+        return Instance;
+    }
+
+    private static int skillPoints = 100;
 
     // delete me - ideally - use stub to pass as a parameter - in future reading player builds configs from files etc...
-    public Hero buildHeroForTesting() {
-        skillPoints = 0;
-        // name, sex, strength, stamina, dexterity, intelligence, wisdom, charisma
-        return new Hero("HERCULES", Sex.MALE, 95, 1, 1, 1, 1, 1);
-    }
+//    public Hero buildHeroForTesting() {
+//        skillPoints = 0;
+//        // name, sex, strength, stamina, dexterity, intelligence, wisdom, charisma
+//        return new Hero("HERCULES", Sex.MALE, 95, 1, 1, 1, 1, 1);
+//    }
 
     public Hero buildHero() {
         System.out.println("skill points left: " + skillPoints);
 
         String name = promptForString("Enter character name> ");
         String sexInput = promptForString("Enter character sex [M]ale, [F]emale, [O]ther> ");
-        String sexSafeInput = sexInput.toLowerCase();
+        String lowerCaseSexInput = sexInput.toLowerCase();
 
-        Sex sex = null;
-
-        switch (sexSafeInput) {
+        Sex sex;
+// ustawia zmienna sex na male, female lub other zaczytujac z konsoli
+        switch (lowerCaseSexInput) {
             case "m":
             case "ma":
             case "mal":
             case "male":
-                printDebug("male");
-                sex = Sex.MALE;
+                printDebug("SELECTED MAALE");
+                sex = MALE;
                 break;
             case "f":
             case "fe":
@@ -39,8 +58,8 @@ public class HeroBuilder {
             case "fema":
             case "femal":
             case "female":
-                printDebug("female!");
-                sex = Sex.valueOf("FEMALE");
+                printDebug("SELECTED FEMALE!");
+                sex = FEMALE;
                 break;
             case "o":
             case "ot":
@@ -48,8 +67,8 @@ public class HeroBuilder {
             case "othe":
             case "other":
             default:
-                printDebug("other");
-                sex = Sex.OTHER;
+                printDebug("SELECTED OTHER");
+                sex = OTHER;
                 break;
         }
 
@@ -65,28 +84,40 @@ public class HeroBuilder {
         do {
             clearScreen();
             System.out.println("Skill points left: " + skillPoints + "\n" +
-                    "[1] strength:     " + strength +     "\n" +
-                    "[2] stamina:      " + stamina +      "\n" +
-                    "[3] dexterity:    " + dexterity +    "\n" +
+                    "[1] strength:     " + strength + "\n" +
+                    "[2] stamina:      " + stamina + "\n" +
+                    "[3] dexterity:    " + dexterity + "\n" +
                     "[4] intelligence: " + intelligence + "\n" +
-                    "[5] wisdom:       " + wisdom +       "\n" +
-                    "[6] charisma:     " + charisma +     "\n\n" +
+                    "[5] wisdom:       " + wisdom + "\n" +
+                    "[6] charisma:     " + charisma + "\n\n" +
                     "[anything else] exit"
             );
             int choice = promptForInt("> ");
             switch (choice) {
-                case 1: strength = readSkillValueFor("strength", strength); break;
-                case 2: stamina = readSkillValueFor("stamina", stamina); break;
-                case 3: dexterity = readSkillValueFor("dexterity", dexterity); break;
-                case 4: intelligence = readSkillValueFor("intelligence", intelligence); break;
-                case 5: wisdom = readSkillValueFor("wisdom", wisdom); break;
-                case 6: charisma = readSkillValueFor("charisma", charisma); break;
+                case 1:
+                    strength = readSkillValueFor("strength", strength);
+                    break;
+                case 2:
+                    stamina = readSkillValueFor("stamina", stamina);
+                    break;
+                case 3:
+                    dexterity = readSkillValueFor("dexterity", dexterity);
+                    break;
+                case 4:
+                    intelligence = readSkillValueFor("intelligence", intelligence);
+                    break;
+                case 5:
+                    wisdom = readSkillValueFor("wisdom", wisdom);
+                    break;
+                case 6:
+                    charisma = readSkillValueFor("charisma", charisma);
+                    break;
                 default:
                     boolean allStatFieldsSet = strength > 0 && stamina > 0 && dexterity > 0 && intelligence > 0 && wisdom > 0 && charisma > 0;
-                    if(skillPoints == 0 && allStatFieldsSet) {
+                    if (skillPoints == 0 && allStatFieldsSet) {
                         exit = true;
                     } else {
-                        promptForString("You have some points to set - remember that stats cannot be 0");
+                        promptForString("You have some points to set - remember that stats cannot be 0\n Press enter to continue");
                     }
             }
         } while (!exit);

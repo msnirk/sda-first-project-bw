@@ -86,7 +86,7 @@ public class ConsoleUtils {
         }*/
 
         // just print 50 empty lines ...
-        //for (int i = 0; i< 50; i++) System.out.println();
+        for (int i = 0; i< 50; i++) System.out.println();
     }
 
     public static void printDebug(String msg) {
