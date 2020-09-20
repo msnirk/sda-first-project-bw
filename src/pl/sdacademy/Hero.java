@@ -8,8 +8,8 @@ import static pl.sdacademy.Sex.*;
 public class Hero {
 
     //statistics given by player
-    private String name = "unnamed_hero";
-    private Sex sex = MALE;
+    private String name;
+    private Sex sex;
 
     // phisical stats
     private int strength;
@@ -106,7 +106,7 @@ public class Hero {
                 break;
             case 'A':
                 attackValue = baseDamage * 5;
-                hitChance = dexterity * 1;
+                hitChance = dexterity;
                 break;
             case 'F':
                 attackValue = baseDamage * 10;
@@ -133,6 +133,6 @@ public class Hero {
 
     public Enemy getThing() {
         Date d = new Date();
-        return (Enemy) enemy;
+        return enemy;
     }
 }

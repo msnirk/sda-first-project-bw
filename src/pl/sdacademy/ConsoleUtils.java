@@ -46,11 +46,11 @@ public class ConsoleUtils {
     public static final String C_WHITE_BACKGROUND = "\u001B[47m";
     public static final String C_YELLOW_BACKGROUND = "\u001B[43m";
 
-    public static final String c_purple(String message) {
+    public static String c_purple(String message) {
         return C_PURPLE + message + C_RESET;
     }
 
-    public static final String c_red(String message) { return C_RED + message + C_RESET; }
+    public static String c_red(String message) { return C_RED + message + C_RESET; }
 
     public static String promptForString(String prompt) {
         Scanner myObj = new Scanner(System.in);
@@ -68,7 +68,6 @@ public class ConsoleUtils {
             if (!scanner.hasNextInt()) {
                 scanner.next();
                 System.out.println("Please provide correct number");
-                continue;
             } else {
                 return scanner.nextInt();
             }
